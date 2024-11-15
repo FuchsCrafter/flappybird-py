@@ -2,9 +2,13 @@
 import pygame
 from math import sin, cos
 import random as rnd
-
+import time
 # pygame setup
 pygame.init()
+pygame.font.init()
+
+deffont = pygame.font.SysFont('Arial', 30)
+
 
 WIDTH = 1280
 HEIGHT = 720
@@ -19,7 +23,7 @@ frame = 0
 
 class Tube():
     def __init__(self, y, gap_height=200): 
-        self.color = (0,0,255)
+        self.color = (50,200,0)
 
         wid = 50
 
@@ -69,9 +73,6 @@ while running:
         player += jumping
         jumping += jumpFactor
 
-
-
-
     screen.fill((45, 255, 227))
 
     tubez.draw()
@@ -79,12 +80,32 @@ while running:
 
     pygame.draw.rect(screen,(255,0,0),pygame.Rect(100,player,50,50))
 
+    text_surface = deffont.render(f'Score: {score}', False, (0, 0, 0))
+    screen.blit(text_surface, (0,0))
+
 
     pygame.display.flip()
 
     if tubez.x <=150 and tubez.x >=100:
         if player>currynormalized+100 or player<currynormalized-100:
-            print("GAME OVER",)
+            print("GAME OVER")
+
+            screen.fill((0, 0, 0))
+            game_over1 = deffont.render(f'GAME OVER!', False, (255, 255, 255))
+            game_over2 = deffont.render(f'Score: {score}', False, (255, 255, 255))
+            game_over3 = deffont.render(f'Game will close in 10s', False, (255, 255, 255))
+
+            screen.blit(game_over1, (WIDTH/2, HEIGHT/2-15))
+            screen.blit(game_over2, (WIDTH/2, HEIGHT/2+15))
+            screen.blit(game_over3, (WIDTH/2, HEIGHT/2+45))
+
+
+
+            pygame.display.flip()
+
+            time.sleep(10)
+            running = False
+
 
     if (tubez.x <= 0):
         del tubez
@@ -96,5 +117,7 @@ while running:
 
     frame += 1
     clock.tick(60)  # limits FPS to 60
+
+
 
 pygame.quit()
