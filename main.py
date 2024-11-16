@@ -10,13 +10,20 @@ pygame.font.init()
 
 deffont = pygame.font.SysFont('Arial', 30)
 
-midflap_img = pygame.image.load("assets/yellowbird-midflap.png")
-midflap_img = pygame.transform.scale(midflap_img, (50, 50))
-midflap_rect = midflap_img.get_rect()
-midflap_rect.x = 100
+mdflap_img = pygame.transform.scale(pygame.image.load("assets/yellowbird-midflap.png"), (50, 50))
+mdflap_rect = mdflap_img.get_rect()
+mdflap_rect.x = 100
 
-current_img = midflap_img
-current_rect = midflap_rect
+dnflap_img = pygame.transform.scale(pygame.image.load("assets/yellowbird-downflap.png"), (50, 50))
+dnflap_rect = dnflap_img.get_rect()
+dnflap_rect.x = 100
+
+upflap_img = pygame.transform.scale(pygame.image.load("assets/yellowbird-upflap.png"), (50, 50))
+upflap_rect = upflap_img.get_rect()
+upflap_rect.x = 100
+
+current_img =  upflap_img
+current_rect = upflap_rect
 
 WIDTH = 1280
 HEIGHT = 720
@@ -86,6 +93,16 @@ while running:
     if player < HEIGHT-50:
         player += jumping
         jumping += jumpFactor
+
+    if jumping > 1:
+        current_img = upflap_img
+        current_rect = upflap_rect
+    elif jumping > 0:
+        current_img = mdflap_img
+        current_rect = mdflap_rect
+    else:
+        current_img = dnflap_img
+        current_rect = dnflap_rect
 
     # clear display
     screen.fill((45, 255, 227))
