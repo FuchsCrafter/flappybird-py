@@ -3,12 +3,20 @@ import pygame
 from math import sin, cos
 import random as rnd
 import time
+
 # pygame setup
 pygame.init()
 pygame.font.init()
 
 deffont = pygame.font.SysFont('Arial', 30)
 
+midflap_img = pygame.image.load("assets/yellowbird-midflap.png")
+midflap_img = pygame.transform.scale(midflap_img, (50, 50))
+midflap_rect = midflap_img.get_rect()
+midflap_rect.x = 100
+
+current_img = midflap_img
+current_rect = midflap_rect
 
 WIDTH = 1280
 HEIGHT = 720
@@ -83,7 +91,8 @@ while running:
     tubez.decrease_x(5)
 
     # draw player
-    pygame.draw.rect(screen,(255,0,0),pygame.Rect(100,player,50,50))
+    current_rect.y = player
+    screen.blit(current_img, current_rect)
 
     # handle score display
     text_surface = deffont.render(f'Score: {score}', False, (0, 0, 0))
