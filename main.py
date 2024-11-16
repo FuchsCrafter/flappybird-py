@@ -10,6 +10,9 @@ pygame.font.init()
 
 deffont = pygame.font.SysFont('Arial', 30)
 
+WIDTH = 1280
+HEIGHT = 720
+
 mdflap_img = pygame.transform.scale(pygame.image.load("assets/yellowbird-midflap.png"), (50, 50))
 mdflap_rect = mdflap_img.get_rect()
 mdflap_rect.x = 100
@@ -22,11 +25,12 @@ upflap_img = pygame.transform.scale(pygame.image.load("assets/yellowbird-upflap.
 upflap_rect = upflap_img.get_rect()
 upflap_rect.x = 100
 
+background_img = pygame.transform.scale(pygame.image.load("assets/background.png"), (HEIGHT/512 * 288, HEIGHT))
+background_rect = background_img.get_rect()
+
 current_img =  upflap_img
 current_rect = upflap_rect
 
-WIDTH = 1280
-HEIGHT = 720
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
@@ -113,6 +117,15 @@ while running:
 
     # clear display
     screen.fill((45, 255, 227))
+
+    # set background
+    _ = 0
+    background_rect.x = 0
+    while _ < WIDTH:
+        screen.blit(background_img, background_rect)
+        _ += background_rect.width
+        background_rect.x = _
+
 
     # handle tubes
     tubez.draw()
