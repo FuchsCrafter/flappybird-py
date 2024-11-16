@@ -100,7 +100,7 @@ while running:
             screen.fill((0, 0, 0))
             game_over1 = deffont.render(f'GAME OVER!', False, (255, 255, 255))
             game_over2 = deffont.render(f'Score: {score}', False, (255, 255, 255))
-            game_over3 = deffont.render(f'Game will close in 10s', False, (255, 255, 255))
+            game_over3 = deffont.render(f'Game will close in 3s', False, (255, 255, 255))
 
             screen.blit(game_over1, (WIDTH/2, HEIGHT/2-15))
             screen.blit(game_over2, (WIDTH/2, HEIGHT/2+15))
@@ -108,7 +108,7 @@ while running:
 
             pygame.display.flip()
 
-            time.sleep(10)
+            time.sleep(3)
             running = False
 
     # handle tubes reaching left screen border
