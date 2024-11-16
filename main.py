@@ -79,7 +79,6 @@ currynormalized = (HEIGHT/2) + curr_y
 
 player = 100
 jumping = 0
-jumpCooldown = 0
 jumpFactor = 0.14
 score = 0
 
@@ -89,22 +88,16 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            jumping = -jumpFactor*30
+            player += jumping
+            jumping += jumpFactor
 
-    # handle click
-    if pygame.mouse.get_pressed(num_buttons=3)[0] and jumpCooldown <= 0:
-        jumping = -jumpFactor*30
-        player += jumping
-        jumping += jumpFactor
-        jumpCooldown = 25
-
-    elif jumpCooldown > 0:
-        jumpCooldown -= 1
 
     # handle player on the ground
     if player < HEIGHT-50:
         player += jumping
         jumping += jumpFactor
-        jumpCooldown = -1
 
     if jumping > 1:
         current_img = upflap_img
