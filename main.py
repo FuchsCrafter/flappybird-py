@@ -37,15 +37,18 @@ frame = 0
 
 
 class Tube():
-    def __init__(self, y, gap_height=200): # init tubes
-        self.color = (50,200,0)
+    def __init__(self, y, gap_height=230): # init tubes
+        self.color = (20,200,10)
 
-        wid = 50
+        self.wid = 50
+        self.fac = gap_height
 
-        self.rec_top = pygame.Rect(WIDTH-wid, 0           , wid, 230+y)
-        self.rec_dwn = pygame.Rect(WIDTH-wid, HEIGHT-230+y, wid, 230-y)
+        self.y = y
 
-        self.x = WIDTH-wid
+        self.rec_top = pygame.Rect(WIDTH-self.wid, 0                     , self.wid, self.fac+self.y)
+        self.rec_dwn = pygame.Rect(WIDTH-self.wid, HEIGHT-self.fac+self.y, self.wid, self.fac-self.y)
+
+        self.x = WIDTH-self.wid
     
     def draw(self): # handles drawing
         pygame.draw.rect(screen, self.color, self.rec_top)
@@ -55,6 +58,10 @@ class Tube():
         self.x = x
         self.rec_top.x = x
         self.rec_dwn.x = x
+    
+    def reload_recs(self):
+        self.rec_top = pygame.Rect(WIDTH-self.wid, 0                     , self.wid, self.fac+self.y)
+        self.rec_dwn = pygame.Rect(WIDTH-self.wid, HEIGHT-self.fac+self.y, self.wid, self.fac-self.y)
     
     def decrease_x(self, x=1): # handles decreasing x for moving tubes
         self.x -= x
@@ -124,7 +131,7 @@ while running:
 
     # handle Game over
     if tubez.x <=150 and tubez.x >=100:
-        if player>currynormalized+100 or player<currynormalized-100:
+        if player>currynormalized+tubez.fac/2 or player<currynormalized-tubez.fac/2:
             print("GAME OVER")
 
             screen.fill((0, 0, 0))
