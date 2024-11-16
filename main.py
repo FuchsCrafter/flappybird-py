@@ -98,6 +98,13 @@ while running:
     if player < HEIGHT-50:
         player += jumping
         jumping += jumpFactor
+    
+    if player > HEIGHT-50:
+        player = HEIGHT - 50
+
+    if player <= 0:
+        jumping = 0
+        player = 1
 
     if jumping > 1:
         current_img = upflap_img
