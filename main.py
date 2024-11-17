@@ -41,7 +41,7 @@ frame = 0
 
 
 class Tube():
-    def __init__(self, y, gap_height=230): # init tubes
+    def __init__(self, y, gap_height=250): # init tubes
         self.color = (20,200,10)
 
         self.wid = 50
@@ -79,7 +79,7 @@ currynormalized = (HEIGHT/2) + curr_y
 
 player = 100
 jumping = 0
-jumpFactor = 0.14
+jumpFactor = 0.2
 score = 0
 
 while running:
@@ -130,7 +130,7 @@ while running:
 
     # handle tubes
     tubez.draw()
-    tubez.decrease_x(5)
+    tubez.decrease_x(5 + min(score/5, 12))
 
     # draw player
     current_rect.y = player
@@ -163,7 +163,7 @@ while running:
             running = False
 
     # handle tubes reaching left screen border
-    if (tubez.x <= 0):
+    if (tubez.x < 0-tubez.wid):
         del tubez
         score += 1
         curr_y = rnd.randint(-150, 150)
