@@ -62,6 +62,8 @@ class Tube():
         
         self.x = WIDTH-self.wid
 
+        # TODO: Neues Skalierungsmodell sodass die tubes richtig aussehen
+
         # distance from top
         self.rec_top.top = 0
         self.rec_dwn.top = HEIGHT-self.fac+self.y
