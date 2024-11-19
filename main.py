@@ -44,19 +44,35 @@ class Tube():
     def __init__(self, y, gap_height=250): # init tubes
         self.color = (20,200,10)
 
+        self.texture = pygame.image.load("assets/tube.png")
+
+
         self.wid = 50
         self.fac = gap_height
 
         self.y = y
 
-        self.rec_top = pygame.Rect(WIDTH-self.wid, 0                     , self.wid, self.fac+self.y)
-        self.rec_dwn = pygame.Rect(WIDTH-self.wid, HEIGHT-self.fac+self.y, self.wid, self.fac-self.y)
+        # define top texture
+        self.img_top = pygame.transform.rotate(pygame.transform.scale(self.texture, (self.wid, self.fac+self.y)), 180)
+        self.rec_top = self.img_top.get_rect()
 
+        # define bottom texture
+        self.img_dwn = pygame.transform.flip(pygame.transform.scale(self.texture, (self.wid, self.fac-self.y)), True, False)
+        self.rec_dwn = self.img_top.get_rect() 
+        
         self.x = WIDTH-self.wid
+
+        # distance from top
+        self.rec_top.top = 0
+        self.rec_dwn.top = HEIGHT-self.fac+self.y
+
+        # distance from left
+        self.rec_top.left = WIDTH-self.wid
+        self.rec_dwn.left = WIDTH-self.wid
     
     def draw(self): # handles drawing
-        pygame.draw.rect(screen, self.color, self.rec_top)
-        pygame.draw.rect(screen, self.color, self.rec_dwn)
+        screen.blit(self.img_top, self.rec_top)
+        screen.blit(self.img_dwn, self.rec_dwn)
 
     def set_x(self, x): # handles setting x
         self.x = x
