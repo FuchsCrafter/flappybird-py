@@ -120,9 +120,9 @@ while running:
     screen.fill((45, 255, 227))
 
     # set background
-    _ = 0
-    background_rect.x = 0
-    while _ < WIDTH:
+    _ = -(frame % background_rect.width)
+    background_rect.x = _
+    while _ < WIDTH*2:
         screen.blit(background_img, background_rect)
         _ += background_rect.width
         background_rect.x = _
